@@ -5,44 +5,45 @@
 #define N 10
 
 void free_mx(int **mx, size_t col){
-if(mx){
-for(int i = 0; i < col; i++){
-free(mx[i]);
-mx[i] = NULL;
-}
-free(mx);
-mx = NULL;
-}
+
+  if(mx){
+    for(int i = 0; i < col; i++){
+      free(mx[i]);
+      mx[i] = NULL;
+    }
+  free(mx);
+  mx = NULL;
+  }
 
 }
 
 
 bool print_mx(int **mx,size_t row,size_t col){
+
 if(mx){
-for(int i = 0; i < row; i++){
-  if(mx[i]){
-      for(int j = 0 ; j < col;j++){
+  for(int i = 0; i < row; i++){
 
-        if(mx[i][j]){
+    if(mx[i]){
 
-        printf("%d ",mx[i][j]);
+        for(int j = 0 ; j < col;j++){
 
-        } else {
-      printf("0 ");
-        }
+          printf("%d ",mx[i][j]);
+      }
+    }else{
+
+      printf("[NULL]");
     }
-  }else{
-    printf("[NULL]");
-  }
 
-printf("\n");
-}
+  printf("\n");
+  }
 return 1;
 }
 return 0;
-
 }
+
+
 int** init_mx(size_t row, size_t col){
+
 if(row && col){
   int **mx = (int**)malloc(row*sizeof(int*));
 
@@ -88,20 +89,18 @@ return 0;
 int main()
 {
 srand(time(0));
-    //printf("Hello World!\n");
-//int mx[10][10]={0};
-//printf("%d",sizeof(mx)/sizeof(mx[0]));
+
 int **mx = init_mx(10,10);
 if(!mx){
-printf("error initializing matrix");
-return 0;
+  printf("error initializing matrix");
+  return 0;
 }
-//print_mx(mx,10,10);
+
 fill_mx(mx,10,10,0,100);
-// free(mx[5]);
-// mx[5] = NULL;
 
-return print_mx(mx,10,10);
+print_mx(mx,10,10);
 
-    return 0;
+free_mx(mx,10);
+
+return 0;
 }
