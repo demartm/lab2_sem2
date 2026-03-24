@@ -5,9 +5,9 @@
 #define Row 10
 #define Column 10
 
-void free_mx(int **mx, size_t col){
+void free_mx(int **mx, size_t row){
 if(mx){
-for(int i = 0; i < col; i++){
+for(int i = 0; i < row; i++){
 free(mx[i]);
 mx[i] = NULL;
 }
@@ -144,6 +144,8 @@ printf("\n-----------------------------\n\n");
 print_mx(mx2,Row,Column);
 printf("\n-----------------------------\n\n");
  return print_mx(mx3,Row,Column);
+free_mx(mx1,Row);
+free_mx(mx2,Row);
 // int a = 20 * (int)NULL;
 // printf("%d",a);
     return 0;
