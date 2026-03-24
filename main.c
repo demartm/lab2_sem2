@@ -3,7 +3,7 @@
 #include <time.h>
 #include <stdlib.h>
 #define Row 15
-#define Column 10
+#define Column 1
 
 void free_mx(int **mx, size_t row){
 if(mx){
@@ -68,6 +68,7 @@ if(row && col){
 
   } else {
     free(mx);
+    mx = NULL;
     }
 
 return mx;
