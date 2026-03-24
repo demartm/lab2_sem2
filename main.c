@@ -143,7 +143,7 @@ int main()
 srand(time(0));
 
 int **mx1 = init_mx(Row,Column+5);
-int **mx2 = init_mx(Row+5,Column);
+int **mx2 = init_mx(Row+5,Column);//calloc
 
 
 fill_mx(mx1,Row,Column+5,0,100);
