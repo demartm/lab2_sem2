@@ -108,13 +108,22 @@ int **new_mx = init_mx(new_mx_row,new_mx_col);
 
 for(int i = 0; i < row1; i++){
   for(int j = 0; j < col1; j++){
-    new_mx[i][j] = mx1[i][j];
+    if(mx1[i]){
+      new_mx[i][j] = mx1[i][j];
+    } else {
+      new_mx[i][j] = 0;
+    }
   }
 }
 
 for(int i = 0; i < row2; i++){
   for(int j = 0; j < col2; j++){
-    new_mx[i][col1+j] = mx2[i][j];
+    //new_mx[i][col1+j] = mx2[i][j];
+    if(mx2[i]){
+      new_mx[i][col1+j] = mx2[i][j];
+    } else {
+      new_mx[i][col1+j] = 0;
+    }
   }
 }
 
