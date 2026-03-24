@@ -2,12 +2,12 @@
 #include <stdbool.h>
 #include <time.h>
 #include <stdlib.h>
-#define Row 10
+#define Row 15
 #define Column 10
 
-void free_mx(int **mx, size_t col){
+void free_mx(int **mx, size_t row){
 if(mx){
-for(int i = 0; i < col; i++){
+for(int i = 0; i < row; i++){
 free(mx[i]);
 mx[i] = NULL;
 }
@@ -98,7 +98,7 @@ int** transponse_matrix(int **mx,size_t row, size_t col){
 
 if(mx){
 
-  int **new_mx = init_mx(row,col);
+  int **new_mx = init_mx(col,row);
 
   for(int i = 0; i < row; i++){
 
@@ -132,16 +132,17 @@ return 0;
 }
 //print_mx(mx,10,10);
 fill_mx(mx,Row,Column,0,100);
- free(mx[5]);
- mx[5] = NULL;
+ free(mx[0]);
+ mx[0] = NULL;
 
-print_mx(mx,10,10);
+print_mx(mx,Row,Column);
 
 printf("\n-----------------------------\n\n");
 
 int **test = transponse_matrix(mx,Row,Column);
 
-return print_mx(test,Row,Column);
-
-    return 0;
+print_mx(test,Column,Row);
+free_mx(mx,Row);
+free_mx(test,Column);
+return 0;
 }
