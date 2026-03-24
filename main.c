@@ -124,8 +124,8 @@ if(!mx){
 }
 
 fill_mx(mx,Row,Column,0,100);
-free(mx[0]);
-mx[0] = NULL;
+free(mx[1]);
+mx[1] = NULL;
 
 print_mx(mx,Row,Column);
 
