@@ -59,7 +59,7 @@ if(row && col){
 
       if(!mx[i]){
 
-        free_mx(&mx,i);
+        free_mx(&mx,i);//???
         i = row;
         //mx = NULL;
       }
@@ -73,27 +73,34 @@ return NULL;
 }
 bool fill_mx(int **mx,size_t row, size_t col,int rangeA, int rangeB){
 
-if(mx){
+if(mx && row && col){
 
-bool is_success = true;
+//bool is_success = true;
 
-  for(int i = 0; i < row && is_success; i++){
-
-    for(int j = 0; j < col && is_success; j++){
-
-      if(mx[i]){
-
-        mx[i][j] = rand() % (rangeB + 1) + rangeA;
-      } else {
-        is_success = false;
-        }
-    }
+  if(rangeA > rangeB){
+    int temp = rangeB;
+    rangeB = rangeA;
+    rangeA = temp;
   }
-return is_success;
-}
-return false;
 
+  for(int i = 0; i < row; i++){
+    if(mx[i]){//rewrite for uncomplete matrix
+      for(int j = 0; j < col; j++){
+
+
+
+          mx[i][j] = rand() % (rangeB - rangeA + 1) + rangeA;
+
+          // is_success = false;
+          //j = col;
+          }
+      }
+    }
+  return true;}
+return false;
 }
+
+
 
 int **combine_mx(int **mx1, int **mx2, size_t row1, size_t col1, size_t row2, size_t col2){
 
@@ -154,7 +161,18 @@ int main()
 srand(time(0));
 
 int **mx1 = init_mx(Row,Column+5);
+if(!mx1){
+printf("couldn't initalize mx1");
+return 0;
+}
+
 int **mx2 = init_mx(Row+5,Column);//calloc
+if(!mx2){
+free_mx(&mx1,Row);
+printf("couldn't initalize mx2");
+return 0;
+}
+
 // printf("%p\n\n",mx1);
 // free_mx(&mx1,Row);
 // if(mx1){
@@ -164,20 +182,22 @@ int **mx2 = init_mx(Row+5,Column);//calloc
 
 if(!fill_mx(mx1,Row,Column+5,0,100)){
 free_mx(&mx1,Row);
+free_mx(&mx2,Row+5);
 return 0;
 }
 
 if(!fill_mx(mx2,Row+5,Column,0,100)){
+free_mx(&mx1,Row);
 free_mx(&mx2,Row+5);
 return 0;
 }
 
-int **res_mx = combine_mx(mx1,mx2,Row,Row+5,Column+5,Column);
+int **res_mx = combine_mx(mx1,mx2,Row,Column+5,Row+5,Column);
 
 if(!res_mx){
+printf("Invalid pointer!");
 free_mx(&mx1,Row);
 free_mx(&mx2,Row+5);
-free_mx(&res_mx,Row+5);
 
 return 0;
 }
