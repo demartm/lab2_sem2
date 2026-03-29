@@ -45,13 +45,13 @@ return 0;
 int** init_mx(size_t row, size_t col){
 
 if(row && col){
-  int **mx = (int**)malloc(row*sizeof(int*));
+  int **mx = (int**)calloc(row, sizeof(int*));
 
   if(mx){
 
     for(int i = 0; i < row; i++){
 
-      mx[i] = (int*)malloc(col*sizeof(int));
+      mx[i] = (int*)calloc(col, sizeof(int));
 
       if(!mx[i]){
         free_mx(mx,i);
@@ -90,7 +90,7 @@ int main()
 {
 srand(time(0));
 
-int **mx = init_mx(10,10);
+int **mx = init_mx(10,15);
 if(!mx){
   printf("error initializing matrix");
   return 0;
@@ -98,7 +98,7 @@ if(!mx){
 
 fill_mx(mx,10,10,0,100);
 
-print_mx(mx,10,10);
+print_mx(mx,10,15);
 
 free_mx(mx,10);
 
