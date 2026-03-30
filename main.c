@@ -5,6 +5,10 @@
 #define Row 5
 #define Column 5
 
+/*
+ a)Функция объединения двух разреженных  матриц;
+*/
+
 void free_mx(int ***mx, size_t row){
 
 if(mx && *mx){
