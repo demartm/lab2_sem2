@@ -5,6 +5,10 @@
 #define Row 15
 #define Column 5
 
+/*
+b)Функция транспонирования разреженной матрицы;
+*/
+
 void free_mx(int ***mx, size_t row){
 
 if(mx && *mx){
