@@ -5,15 +5,19 @@
 #define Row 15
 #define Column 5
 
-void free_mx(int **mx, size_t row){
-  if(mx){
-    for(int i = 0; i < row; i++){
-      free(mx[i]);
-      mx[i] = NULL;
-    }
-    free(mx);
-    mx = NULL;
+void free_mx(int ***mx, size_t row){
+
+if(mx && *mx){
+
+  for(int i = 0; i < row; i++){
+
+    free((*mx)[i]);
+    (*mx)[i] = NULL;
   }
+
+free(*mx);
+*mx = NULL;
+}
 
 }
 
@@ -37,77 +41,90 @@ bool print_mx(int **mx,size_t row,size_t col){
 return 0;
 
 }
-int** init_mx(size_t row, size_t col){
+int** create_mx(size_t row, size_t col, int rangeA, int rangeB){
 
-  if(row && col){
+if(row && col){
 
-    int **mx = (int**)malloc(row*sizeof(int*));
+  if(rangeA > rangeB){
+    int temp = rangeB;
+    rangeB = rangeA;
+    rangeA = temp;
+  }
 
-      if(mx){
+  int **mx = (int**)calloc(row, sizeof(int*));
 
-        for(int i = 0; i < row; i++){
+  if(mx){
 
-          mx[i] = (int*)malloc(col*sizeof(int));
+    for(int i = 0; i < row; i++){
 
-          if(!mx[i]){
+      mx[i] = (int*)calloc(col, sizeof(int));
 
-            free_mx(mx,i);
-            i = row;
-          }
+      if(!mx[i]){
 
-        }
-
-      } else {
-      free(mx);
-      mx = NULL;
+        free_mx(&mx,i);
+        i = row;
       }
 
-  return mx;
-  }
-return 0;
-}
-
-bool fill_mx(int **mx,size_t row, size_t col,int rangeA, int rangeB){
-
-if(mx){
-
+    }
+if((rangeA || rangeB) && mx){
   for(int i = 0; i < row; i++){
 
-    for(int j = 0; j < col; j++){
+      for(int j = 0; j < col; j++){
 
-      if(mx[i]){
-
-        mx[i][j] = rand() % (rangeB + 1) + rangeA;
-      }
+          mx[i][j] = rand() % (rangeB - rangeA + 1) + rangeA;
+          }
     }
-  }
-return 1;
 }
-return 0;
+
+return mx;
+  }
 
 }
+return NULL;
+}
+
+// bool fill_mx(int **mx,size_t row, size_t col,int rangeA, int rangeB){
+
+// if(mx){
+
+//   for(int i = 0; i < row; i++){
+
+//     for(int j = 0; j < col; j++){
+
+//       if(mx[i]){
+
+//         mx[i][j] = rand() % (rangeB + 1) + rangeA;
+//       }
+//     }
+//   }
+// return 1;
+// }
+// return 0;
+
+// }
 int** transponse_matrix(int **mx,size_t row, size_t col){
 
 if(mx){
 
-  int **new_mx = init_mx(col,row);
-
+  int **new_mx = create_mx(col,row,0,0);
+if(new_mx){
   for(int i = 0; i < row; i++){
-
+if(mx[i]){
     for(int j = 0; j < col; j++){
 
-      if(mx[i]){
+
 
         new_mx[j][i] = mx[i][j];
-      } else {
-        new_mx[j][i] = 0;
+      // } else {
+      //   new_mx[j][i] = 0;
       }
     }
   }
 
 return new_mx;
 }
-return 0;
+}
+return NULL;
 }
 
 
@@ -116,26 +133,36 @@ int main()
 
 srand(time(0));
 
-int **mx = init_mx(Row,Column);
+int **mx = create_mx(Row,Column,0,100);
 
 if(!mx){
   printf("error initializing matrix");
   return 0;
 }
 
-fill_mx(mx,Row,Column,0,100);
+//fill_mx(mx,Row,Column,0,100);
 free(mx[1]);
 mx[1] = NULL;
 
-print_mx(mx,Row,Column);
+if(!print_mx(mx,Row,Column)){
+printf("failed to print the matrix");
+}
 
 printf("\n-----------------------------\n\n");
 
 int **test = transponse_matrix(mx,Row,Column);
+if(!test){
+printf("failed to transpose the matrix");
+free_mx(&mx,Row);
+return 0;
+}
+if(!print_mx(test,Column,Row)){
 
-print_mx(test,Column,Row);
-free_mx(mx,Row);
-free_mx(test,Column);
+
+printf("failed to print the matrix");
+}
+free_mx(&mx,Row);
+free_mx(&test,Column);
 
 return 0;
 
