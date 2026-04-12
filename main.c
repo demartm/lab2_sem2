@@ -174,6 +174,33 @@ if(mx1 && mx2 && r1 > 0 && c1 > 0 && r2 > 0 && c2 > 0){
 return NULL;
 }
 
+int** transponse_matrix(int **mx,int r, int c){
+
+if(mx && r > 0 && c > 0){
+
+  size_t row = r;
+  size_t col = c;
+
+  int **new_mx = create_mx(col,row,0,0);
+  if(new_mx){
+    for(int i = 0; i < row; i++){
+    if(mx[i]){
+      for(int j = 0; j < col; j++){
+
+
+
+          new_mx[j][i] = mx[i][j];
+        // } else {
+        //   new_mx[j][i] = 0;
+        }
+      }
+    }
+
+return new_mx;
+  }
+}
+return NULL;
+}
 int main()
 {
 srand(time(0));
