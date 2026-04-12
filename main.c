@@ -118,6 +118,62 @@ return NULL;
 
 
 
+int **combine_mx(int **mx1, int **mx2, int r1, int c1, int r2, int c2){
+
+if(mx1 && mx2 && r1 > 0 && c1 > 0 && r2 > 0 && c2 > 0){
+  size_t row1 = r1;
+  size_t col1 = c1;
+  size_t row2 = r2;
+  size_t col2 = c2;
+  size_t new_mx_row = 0;
+
+    if(row1 > row2){
+
+        new_mx_row = row1;
+    } else {
+
+        new_mx_row = row2;
+    }
+
+  size_t new_mx_col = col1+col2;
+
+  int **new_mx = create_mx(new_mx_row,new_mx_col,0,0);
+  if(new_mx){
+
+  for(int i = 0; i < row1; i++){
+
+    for(int j = 0; j < col1; j++){
+
+      if(mx1[i]){
+
+        new_mx[i][j] = mx1[i][j];
+      } else {
+        new_mx[i][j] = 0;
+      }
+    }
+  }
+
+  for(int i = 0; i < row2; i++){
+
+    for(int j = 0; j < col2; j++){
+
+      if(mx2[i]){
+
+        new_mx[i][col1+j] = mx2[i][j];
+      } else {
+
+        new_mx[i][col1+j] = 0;
+      }
+    }
+  }
+
+   return new_mx;
+  }
+
+}
+return NULL;
+}
+
 int main()
 {
 srand(time(0));
