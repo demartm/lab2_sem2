@@ -4,15 +4,6 @@
 #include <stdlib.h>
 #define N 10
 
-/*
-Общие функции
-
-1. Написать функцию создания динамической матрицы и заполнения ее значениями в заданном диапазоне
-
-2. Написать функцию освобождения памяти динамической матрицы.
-
-3. Написать функцию вывода матрицы на печать.
-*/
 
 
 void free_mx(int ***mx, size_t row){
@@ -101,21 +92,6 @@ return mx;
 return NULL;
 }
 
-// bool fill_mx(int **mx,size_t row, size_t col,int rangeA, int rangeB){
-// if(mx){
-//   for(int i = 0; i < row; i++){
-//     for(int j = 0; j < col; j++){
-//       if(mx[i]){
-//         mx[i][j] = rand() % (rangeB + 1) + rangeA;
-//       }
-//     }
-//   }
-// return 1;
-// }
-// return 0;
-
-//}
-
 
 
 int **combine_mx(int **mx1, int **mx2, int r1, int c1, int r2, int c2){
@@ -202,147 +178,113 @@ return new_mx;
 return NULL;
 }
 int main()
+
 {
+
 srand(time(0));
 
-//int **mx = create_mx(0,0,0,100);
-//Вывод:error initializing matrix
+int row1 = 5;
+int col1 = 5;
 
-//int **mx = create_mx(10,0,0,100);
-//Вывод:error initializing matrix
+int row2 = 5;
+int col2 = 5;
 
-//int **mx = create_mx(0,10,0,100);
-//Вывод:error initializing matrix
+int res_row = row2;
 
-//int **mx = create_mx(-10,10,0,100);
-//Вывод:error initializing matrix
+if(row1>row2){
+  res_row = row1;
+}
+int res_col = col1 + col2;
 
-//int **mx = create_mx(10,-10,0,100);
-//Вывод:error initializing matrix
-
-/*
-Необходимо ввести размеры матрицы при выводе и при удалении.
-*/
-
-//int **mx = create_mx(10,10,0,0);
-//Вывод:
-/*0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0*/
-
-//int **mx = create_mx(4,4,10,0);
-//Вывод:
-/*
-10 5 2 6
-4 0 4 1
-7 4 8 9
-4 0 2 7
-*/
-
-//int **mx = create_mx(4,4,0,10);
-//Вывод:
-/*
-9 5 4 0
-5 0 6 9
-7 10 2 7
-10 4 6 4
-*/
-
-//int **mx = create_mx(4,4,0,-10);
-//Вывод:
-/*
--5 -8 -5 -5
--7 -7 -5 -5
--10 -6 0 -10
--5 -8 -3 -2
-*/
-
-//int **mx = create_mx(4,4,-10,0);
-//Вывод:
-/*
--8 -8 -9 0
--5 -8 -8 -1
--6 -3 -3 0
--10 -6 -5 0
-*/
-
-//int **mx = create_mx(4,10,0,10);
-//Вывод:
-/*
-3 8 6 1 10 0 9 4 6 4
-0 2 2 3 2 1 6 3 4 3
-4 3 7 1 0 1 5 9 3 1
-7 6 9 0 5 6 0 4 10 4
-*/
-
-//int **mx = create_mx(10,4,0,10);
-//Вывод:
-/*
-2 0 5 2
-8 1 8 2
-2 7 5 1
-1 3 1 6
-8 4 0 1
-6 0 6 9
-5 1 10 1
-8 1 6 8
-1 0 0 7
-0 8 10 2
-*/
+int Column = 5;
+int Row = 5;
 
 int **mx = create_mx(4,4,0,10);
 if(!mx){
   printf("error initializing matrix");
   return 0;
 }
-//free(mx[2]);
-//mx[2] = NULL;
-/*
-6 6 6 8
-0 1 2 5
-[NULL]
-0 7 5 3
-*/
-// free(mx[3]);
-// mx[3] = NULL;
-/*
-10 3 2 9
-7 3 4 1
-10 3 10 8
-[NULL]
-*/
-
-
-//if(!print_mx(NULL,4,4)){
-//Вывод:failed to print the matrix
-
-//if(!print_mx(mx,0,4)){
-//Вывод:failed to print the matrix
-
-//if(!print_mx(mx,4,0)){
-//Вывод:failed to print the matrix
-
-//if(!print_mx(mx,-4,4)){
-//Вывод:failed to print the matrix
-
-//if(!print_mx(mx,4,-4)){
-//Вывод:failed to print the matrix
-
-//if(!print_mx(mx,-4,-4)){
-//Вывод:failed to print the matrix
+printf("\n-----------------------------\nOrdnary matrix:\n\n");
 
 if(!print_mx(mx,4,4)){
 printf("failed to print the matrix");
-}
+
 
 free_mx(&mx,4);
 
+return 0;
+}
+
+
+
+int **mx1 = create_mx(row1,col1,0,100);
+
+if(!mx1){
+  printf("couldn't initalize mx1");
+  return 0;
+}
+
+int **mx2 = create_mx(row2,col2,0,100);
+
+if(!mx2){
+  free_mx(&mx1,row1);
+  printf("couldn't initalize mx2");
+  return 0;
+}
+
+free(mx2[2]);
+mx2[2] = NULL;
+
+free(mx1[1]);
+mx1[1] = NULL;
+
+
+printf("\n-----------------------------\nMatrix1:\n\n");
+if(!print_mx(mx1,row2,col2)){
+  printf("failed to print mx1");
+}
+
+
+printf("\n-----------------------------\nMatrix2:\n\n");
+if(!print_mx(mx2,row2,col2)){
+  printf("failed to print mx2");
+}
+
+printf("\n-----------------------------\nMx1 and Mx2 combined:\n\n");
+
+int **res_mx = combine_mx(mx1,mx2,row1,col1,row2,col2);
+
+if(!res_mx){
+printf("failed to combine matrix");
+free_mx(&mx1,row1);
+free_mx(&mx2,row2);
+return 0;
+}
+
+if(!print_mx(res_mx,res_row,res_col)){
+printf("failed to print result mx");
+}
+free_mx(&mx1,row1);
+free_mx(&mx2,row2);
+
+  int **test = transponse_matrix(res_mx,res_row,res_col);//mx,Row,Column);
+  if(!test){
+    printf("failed to transpose the matrix");
+    //free_mx(&mx,Row);
+    free_mx(&res_mx,res_row);
+    return 0;
+  }
+
+  printf("\n-----------------------------\nTransposed matrix:\n\n");
+
+  if(!print_mx(test,res_col,res_row)){//Column,Row)){
+
+    printf("failed to print the matrix");
+  }
+
+  free_mx(&test,res_col);
+  free_mx(&res_mx,res_row);
+  //free_mx(&mx,Row);
+//}
 return 0;
 }
