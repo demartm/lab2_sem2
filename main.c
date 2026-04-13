@@ -133,7 +133,35 @@ if(mx1 && mx2 && row1 && col1 && row2 && col2){// && r1 > 0 && c1 > 0 && r2 > 0 
   int **new_mx = create_mx(new_mx_row,new_mx_col,0,0);
   if(new_mx){
 
-  for(int i = 0; i < row1; i++){
+
+for(int i = 0; i < new_mx_row; i++){
+  if(mx1[i] || mx2[i]){
+
+    for(int j = 0; j < col1; j++){
+      if(mx1[i]){
+
+         new_mx[i][j] = mx1[i][j];
+       }
+    }
+
+    for(int j = 0; j < col2; j++){
+      if(mx2[i]){
+
+        new_mx[i][col1+j] = mx2[i][j];
+      }
+    }
+  } else {
+
+free(new_mx[i]);
+new_mx[i] = NULL;
+}
+
+
+
+}
+
+
+/*  for(int i = 0; i < row1; i++){
 
     for(int j = 0; j < col1; j++){
 
@@ -159,7 +187,7 @@ if(mx1 && mx2 && row1 && col1 && row2 && col2){// && r1 > 0 && c1 > 0 && r2 > 0 
       }
     }
   }
-
+*/
    return new_mx;
   }
 
@@ -582,6 +610,64 @@ if(!mx1){
   free_mx(&mx1,row1);
   return 0;
 }
+
+// free(mx1[1]);
+// mx1[1] = NULL;
+
+// free(mx2[1]);
+// mx2[1] = NULL;
+
+
+/*Mx1 and Mx2 combined:
+
+   3   8   9   2   5   4
+  [NULL]
+   3   7   3   4   3   7*/
+
+free(mx1[0]);
+mx1[0] = NULL;
+
+free(mx1[1]);
+mx1[1] = NULL;
+
+free(mx1[2]);
+mx1[2] = NULL;
+
+free(mx2[0]);
+mx2[0] = NULL;
+
+free(mx2[1]);
+mx2[1] = NULL;
+
+free(mx2[2]);
+mx2[2] = NULL;
+
+
+/*Matrix2:
+
+  [NULL]
+  [NULL]
+  [NULL]
+
+-----------------------------
+Mx1 and Mx2 combined:
+
+  [NULL]
+  [NULL]
+  [NULL]
+
+-----------------------------
+Comb_mx transposed:
+
+   0   0   0
+   0   0   0
+   0   0   0
+   0   0   0
+   0   0   0
+   0   0   0*/
+
+
+
 
 // free(mx1[1]);
 // mx1[1] = NULL;
